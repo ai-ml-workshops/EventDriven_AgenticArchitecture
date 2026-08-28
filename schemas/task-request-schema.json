@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskRequestEvent",
+  "description": "Event emitted by an event producer to request agentic workflow execution",
+  "type": "object",
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the event"
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Correlation identifier for tracking workflow execution across distributed components"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when the event was generated"
+    },
+    "taskType": {
+      "type": "string",
+      "enum": ["CODE_REVIEW", "RESEARCH", "TEXT_ANALYSIS", "ACTION_PLANNING", "GENERAL_ASSISTANT"],
+      "description": "Type of agentic task to execute"
+    },
+    "userId": {
+      "type": "string",
+      "description": "User or service that initiated the task request"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "prompt": {
+          "type": "string",
+          "description": "Prompt or instructions for the agent / LLM"
+        },
+        "context": {
+          "type": "object",
+          "description": "Contextual metadata or background information for the agent"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Execution parameters (e.g. temperature, maxTokens, systemPrompt)"
+        }
+      },
+      "required": ["prompt"]
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "SemVer version of the event schema",
+      "default": "1.0.0"
+    }
+  },
+  "required": ["eventId", "correlationId", "timestamp", "taskType", "userId", "payload", "schemaVersion"]
+}
