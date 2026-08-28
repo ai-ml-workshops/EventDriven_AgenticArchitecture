@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eventdriven-agentic-architecture"
+version = "1.0.0"
+description = "Event-driven pipeline for agentic workflows with Kafka and LLMs"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "kafka-python>=2.0.2",
+    "anthropic>=0.30.0",
+    "pydantic>=2.0.0",
+    "requests>=2.28.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["python/tests"]
